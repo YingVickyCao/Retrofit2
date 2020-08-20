@@ -11,10 +11,16 @@ import rx.Observable;
 import java.util.Map;
 
 public interface LocalService {
-    // http://localhost:7777/getSum?num1=5&num2=15
-    @GET("getSum")
+    // http://localhost:7777/sum?num1=5&num2=15
+    @GET("sum")
     Call<Integer> getSum(@Query("num1") int num1, @Query("num2") int num2);
 
+    // 302
+    // http://localhost:7777/before_redirect/40
+    @GET("/before_redirect/{num}")
+//    Call<String> redirect(@Path("num") int num);
+    Observable<Response<ResponseBody>> redirect(@Path("num") int num);
+    
     /*
        Request URL: http://localhost:7777/login
        Request Method: POST
@@ -26,7 +32,6 @@ public interface LocalService {
     @POST("login")
     @Headers("Content-Type: application/json; charset=utf8")
     Call<LoginResult> login(@Body User user);
-
 
     /**
      * <pre>

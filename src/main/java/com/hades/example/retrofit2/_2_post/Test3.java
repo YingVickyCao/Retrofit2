@@ -7,14 +7,23 @@ import retrofit2.Response;
 
 import java.io.IOException;
 
-public class Test3 extends LocalServiceCreator {
+public class Test3 {
     private static final String TAG = Test3.class.getSimpleName();
 
     public static void main(String[] args) throws IOException {
-        new Test3().init();
+        new Test3().test();
     }
 
-    @Override
+    private void test() {
+        try {
+            LocalServiceCreator localServiceCreator = new LocalServiceCreator();
+            LocalService localService = localServiceCreator.init();
+            request(localService);
+        } catch (IOException exception) {
+            exception.printStackTrace();
+        }
+    }
+
     protected void request(LocalService service) throws IOException {
         new Thread(new Runnable() {
             @Override

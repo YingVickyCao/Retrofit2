@@ -13,10 +13,20 @@ public class Test extends LocalServiceCreator {
     private static final String TAG = Test.class.getSimpleName();
 
     public static void main(String[] args) throws IOException {
-        new Test().init();
+        new Test().test();
     }
 
-    @Override
+
+    private void test() {
+        try {
+            LocalServiceCreator localServiceCreator = new LocalServiceCreator();
+            LocalService localService = localServiceCreator.init();
+            request(localService);
+        } catch (IOException exception) {
+            exception.printStackTrace();
+        }
+    }
+
     protected void request(LocalService service) throws IOException {
         new Thread(new Runnable() {
             @Override

@@ -21,6 +21,7 @@ dependencies {
     implementation "com.squareup.retrofit2:converter-moshi:$retrofit2_version"
     implementation "com.squareup.retrofit2:adapter-rxjava:$retrofit2_version"
     implementation "com.squareup.okhttp3:mockwebserver:3.12.0"
+    compile group: 'com.squareup.okhttp3', name: 'logging-interceptor', version: '3.12.0'
     implementation 'com.google.code.findbugs:jsr305:3.0.2'
     implementation 'org.jsoup:jsoup:1.7.3'
 }
