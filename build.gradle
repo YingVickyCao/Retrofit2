@@ -11,7 +11,7 @@ repositories {
     mavenCentral()
 }
 
-def retrofit2_version = '2.7.2'
+def retrofit2_version = '2.9.0'
 dependencies {
     testImplementation group: 'junit', name: 'junit', version: '4.12'
     implementation "com.squareup.retrofit2:retrofit:$retrofit2_version"
@@ -20,8 +20,10 @@ dependencies {
     implementation "com.squareup.retrofit2:converter-scalars:$retrofit2_version"
     implementation "com.squareup.retrofit2:converter-moshi:$retrofit2_version"
     implementation "com.squareup.retrofit2:adapter-rxjava:$retrofit2_version"
-    implementation "com.squareup.okhttp3:mockwebserver:3.12.0"
-    compile group: 'com.squareup.okhttp3', name: 'logging-interceptor', version: '3.12.0'
+
+    implementation group: 'com.squareup.okhttp3', name: 'logging-interceptor', version: '4.7.1'
+    implementation group: 'com.squareup.okhttp3', name: 'mockwebserver', version: '4.7.1'
+
     implementation 'com.google.code.findbugs:jsr305:3.0.2'
     implementation 'org.jsoup:jsoup:1.7.3'
 }
