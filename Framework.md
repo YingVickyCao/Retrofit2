@@ -38,8 +38,17 @@ public class CustomLoggingInterceptor implements Interceptor {
 
 ### 302
 
-- 302 通常用在跨 domian 请求
+- 302 ?  
+  重定向/redirect
 
+  重定向是两次请求；  
+  重定向的 URL 可以是其他应用，不局限于当前应用；  
+  重定向的响应头为 302，并且必须要有 Location 响应头；
+
+  https://blog.csdn.net/weixin_30396699/article/details/99301200  
+  https://blog.csdn.net/qq_33442160/article/details/81711386
+
+- 302 通常用在跨 domian 请求
 - 默认有 Interceptor。 不添加自定义 Interceptor ，也能执行 302 跳转，但没有 log。
 
 ### Application Interceptors

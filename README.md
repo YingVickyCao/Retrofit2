@@ -53,12 +53,70 @@ Call<NewsBean> getItem(@Path("newsId") String newsId， @Path("type") String typ
 
 # 2 POST
 
-## Post - send form data
+## Form
 
-```
+```java
+/**
+    * <pre>
+    * Server:
+    * http://localhost:7777/login
+    * POST
+    * name=test&pwd=123456
+    *
+    * HTML submit:
+    * name=test&pwd=123456
+    * </pre>
+*/
 @POST("login")
 @FormUrlEncoded
 Call<LoginResult> login(@FieldMap Map<String, String> map);
+```
+
+```java
+/**
+    * <pre>
+    * Server:
+    * http://localhost:8888/login
+    * POST
+    * name=test&pwd=123456
+    *
+    * HTML submit:
+    * name=test&pwd=123456
+    * </pre>
+    */
+@POST("login")
+@FormUrlEncoded
+Call<LoginResult> login(@Field("name") String name, @Field("pwd") String pwd);
+```
+
+- 使用@Field 时记得添加@FormUrlEncoded
+
+## Body
+
+```java
+/*
+    Request URL: http://localhost:7777/login
+    Request Method: POST
+    From Data :
+            {"name":"test","pwd":"123456"}
+            name=test&pwd=123456
+    Content-Type: application/json; charset=utf8
+    */
+@POST("login")
+@Headers("Content-Type: application/json; charset=utf8")
+Call<LoginResult> login(@Body User user);
+```
+
+- POST 的可能非标准使用
+
+```
+@Path + Field
+/
+@Path + @Query + Body
+/
+@Path + @Query + Field
+/
+@Path + @Query + FieldMap
 ```
 
 # 3 Download zip
@@ -194,6 +252,14 @@ Observable<Response<ResponseBody>> getSum(@Query("num1") int num1, @Query("num2"
 Integer getSum(@Query("num1") int num1, @Query("num2") int num2)
 ```
 
+# 7 同步
+
+- TBD:https://blog.csdn.net/biezhihua/article/details/49232289
+
+# 8 异步
+
+- TBD:https://blog.csdn.net/biezhihua/article/details/49232289
+
 # ERROR
 
 - `Q :ERROR:Caused by: java.lang.IllegalArgumentException: Could not locate call adapter for rx.Observable<okhttp3.ResponseBody>`
@@ -210,4 +276,10 @@ Retrofit retrofit = new Retrofit.Builder()
 
 # Refs
 
-https://www.jianshu.com/p/3bbd12ba6309
+- https://www.jianshu.com/p/3bbd12ba6309
+- https://www.jianshu.com/p/7687365aa946
+- https://square.github.io/okhttp/interceptors/
+- https://www.jianshu.com/p/fc4d4348dc58
+- TBD:https://blog.csdn.net/biezhihua/article/details/49232289
+- 302 https://blog.csdn.net/weixin_30396699/article/details/99301200
+- 302 https://blog.csdn.net/qq_33442160/article/details/81711386
