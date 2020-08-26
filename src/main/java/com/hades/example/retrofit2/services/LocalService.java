@@ -15,6 +15,14 @@ public interface LocalService {
     @GET("sum")
     Call<Integer> getSum(@Query("num1") int num1, @Query("num2") int num2);
 
+    // http://localhost:7777/sum?num1=5&num2=15
+    @GET("sum")
+    Call<Integer> getSum(@QueryMap Map<String, Integer> map);
+
+    // http://localhost:7777/sum?num1=5&num2=15
+    @GET("sum")
+    Call<Integer> getSum(@Query("num1") int num1,@QueryMap Map<String, Integer> map);
+
     // 302
     // http://localhost:7777/before_redirect/40
     @GET("/before_redirect/{num}")
@@ -44,8 +52,8 @@ public interface LocalService {
      * name=test&pwd=123456
      * </pre>
      */
-    @FormUrlEncoded
     @POST("login")
+    @FormUrlEncoded
     Call<LoginResult> login(@FieldMap Map<String, String> map);
 
     /**
@@ -59,8 +67,8 @@ public interface LocalService {
      * name=test&pwd=123456
      * </pre>
      */
-    @FormUrlEncoded
     @POST("login")
+    @FormUrlEncoded
     Call<LoginResult> login(@Field("name") String name, @Field("pwd") String pwd);
 
     @POST("login")
