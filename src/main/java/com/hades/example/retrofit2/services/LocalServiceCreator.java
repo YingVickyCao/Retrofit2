@@ -1,5 +1,6 @@
 package com.hades.example.retrofit2.services;
 
+import com.hades.example.retrofit2._6_302.v1.CustomLoggingInterceptor;
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
@@ -27,7 +28,6 @@ public class LocalServiceCreator {
         OkHttpClient.Builder builder = new OkHttpClient.Builder();
         builder.addNetworkInterceptor(createHttpLoggingInterceptor());
 //        builder.addInterceptor(createHttpLoggingInterceptor());
-
         OkHttpClient okHttpClient = builder.build();
         return okHttpClient;
     }
