@@ -11,6 +11,21 @@ import rx.Observable;
 import java.util.Map;
 
 public interface LocalService {
+    /**
+     * Test synchronous or asynchronous HTTP request,START
+     */
+    // http://localhost:7777/hello
+    @GET("hello")
+    Call<String> hello();
+
+    // http://localhost:7777/hello
+    @GET("hello")
+    Observable<Response<ResponseBody>> hello3();
+
+    /**
+     * Test synchronous or asynchronous HTTP request,END
+     */
+
     // http://localhost:7777/sum?num1=5&num2=15
     @GET("sum")
     Call<Integer> getSum(@Query("num1") int num1, @Query("num2") int num2);
@@ -21,14 +36,14 @@ public interface LocalService {
 
     // http://localhost:7777/sum?num1=5&num2=15
     @GET("sum")
-    Call<Integer> getSum(@Query("num1") int num1,@QueryMap Map<String, Integer> map);
+    Call<Integer> getSum(@Query("num1") int num1, @QueryMap Map<String, Integer> map);
 
     // 302
     // http://localhost:7777/before_redirect/40
     @GET("/before_redirect/{num}")
 //    Call<String> redirect(@Path("num") int num);
     Observable<Response<ResponseBody>> redirect(@Path("num") int num);
-    
+
     /*
        Request URL: http://localhost:7777/login
        Request Method: POST

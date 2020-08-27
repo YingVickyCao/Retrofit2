@@ -6,6 +6,7 @@ import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
+import retrofit2.converter.scalars.ScalarsConverterFactory;
 
 import java.io.IOException;
 
@@ -16,8 +17,10 @@ public class LocalServiceCreator {
         Retrofit retrofit = new Retrofit.Builder()
                 .client(createOkHttpClient())
                 .baseUrl(BASE_URL)
-                .addConverterFactory(GsonConverterFactory.create())
-                .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
+                .addConverterFactory(ScalarsConverterFactory.create())      // return String:Call<String>
+                .addConverterFactory(GsonConverterFactory.create())         // return json:bean)
+                // FIXED_ERROR:Caused by: java.lang.IllegalArgumentException: Could not locate call adapter for io.reactivex.Observable.
+                .addCallAdapterFactory(RxJavaCallAdapterFactory.create())   // return Observable<Response<ResponseBody>>
                 .build();
 
         LocalService service = retrofit.create(LocalService.class);

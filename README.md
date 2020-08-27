@@ -239,26 +239,38 @@ Call(ResponseBody) getData(@Query("id") String id);
 # 6 Return value
 
 ```java
+// Each Call can make a synchronous or asynchronous HTTP request to the remote webserver.
+
 @GET("sum")
 Call<Integer> getSum(@Query("num1") int num1, @Query("num2") int num2)
-
 /
 
 @GET("sum")
 Observable<Response<ResponseBody>> getSum(@Query("num1") int num1, @Query("num2") int num2);
 
 /
-@GET("sum")
-Integer getSum(@Query("num1") int num1, @Query("num2") int num2)
+// Return is Json -> Bean
+@POST("login")
+@Headers("Content-Type: application/json; charset=utf8")
+Call<LoginResult> login(@Body User user);
 ```
 
-# 7 同步
+# 7 synchronous and asynchronous HTTP request
 
-- TBD:https://blog.csdn.net/biezhihua/article/details/49232289
+```java
+// http://localhost:7777/hello
+// call.execute() : sync
+// call.enqueue() : async
+@GET("hello")
+Call<String> hello();
 
-# 8 异步
+// http://localhost:7777/hello
+// Ust RxJava to    sync or async
+@GET("hello")
+Observable<Response<ResponseBody>> hello2();
+```
 
-- TBD:https://blog.csdn.net/biezhihua/article/details/49232289
+Each Call / Observable from the created GitHubService can make a synchronous or asynchronous HTTP request to the remote webserver.
 
 # ERROR
 
@@ -278,6 +290,7 @@ Retrofit retrofit = new Retrofit.Builder()
 
 - https://www.jianshu.com/p/3bbd12ba6309
 - https://www.jianshu.com/p/7687365aa946
+- https://square.github.io/retrofit/
 - https://square.github.io/okhttp/interceptors/
 - https://www.jianshu.com/p/fc4d4348dc58
 - TBD:https://blog.csdn.net/biezhihua/article/details/49232289

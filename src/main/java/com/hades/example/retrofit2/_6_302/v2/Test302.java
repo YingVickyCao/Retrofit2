@@ -1,5 +1,6 @@
 package com.hades.example.retrofit2._6_302.v2;
 
+import com.hades.example.java.lib.FileUtils;
 import com.hades.example.retrofit2.services.LocalService;
 import com.hades.example.retrofit2.services.LocalServiceCreator;
 import okhttp3.ResponseBody;
@@ -43,17 +44,11 @@ public class Test302 {
 
                     @Override
                     public void onNext(Response<ResponseBody> responseBodyResponse) {
-                        System.out.println(responseBodyResponse);
+                        String result = new FileUtils().convertStreamToStr(responseBodyResponse.body().byteStream());
+                        // Jump from redirect
+                        System.out.println(result);
                     }
                 });
-//                Call<String> call = service.redirect(5);
-//                Response<String> response = null;
-//                try {
-//                    response = call.execute();
-//                } catch (IOException e) {
-//                    e.printStackTrace();
-//                }
-//                response(response);
     }
 
     private void response(Response<String> response) {
