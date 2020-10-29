@@ -1,23 +1,53 @@
 package com.hades.example.retrofit2._6_302.v1;
 
 import com.hades.example.java.lib.FileUtils;
+import com.hades.example.retrofit2.services.LocalService;
 import com.hades.example.retrofit2.services.LocalServiceCreator;
+import com.hades.example.retrofit2.services.OkHttpUtils;
 import okhttp3.Request;
-import okhttp3.Response;
 import okhttp3.ResponseBody;
+import retrofit2.Response;
+import rx.Observer;
 
-public class TestInterceptors {
+import java.io.IOException;
+
+public class Test302 {
+    private static final String TAG = Test302.class.getSimpleName();
+
     public static void main(String[] args) {
-        TestInterceptors testInterceptors = new TestInterceptors();
-        testInterceptors.test();
+        rxjava_with_interepter_302();
+        okhttp_302();
     }
 
-    private void test() {
-        test_ApplicationInterceptors();
+    private static void rxjava_with_interepter_302() {
+        try {
+            LocalServiceCreator localServiceCreator = new LocalServiceCreator();
+            LocalService localService = localServiceCreator.init();
+            localService.redirect(5)
+                    .subscribe(new Observer<Response<ResponseBody>>() {
+                        @Override
+                        public void onCompleted() {
+                            System.out.println();
+                        }
+
+                        @Override
+                        public void onError(Throwable e) {
+                            System.out.println(e);
+                        }
+
+                        @Override
+                        public void onNext(Response<ResponseBody> responseBodyResponse) {
+                            String result = new FileUtils().convertStreamToStr(responseBodyResponse.body().byteStream());
+                            // Jump from redirect
+                            System.out.println(result);
+                        }
+                    });
+        } catch (IOException exception) {
+            exception.printStackTrace();
+        }
     }
 
     // 重定向
-
     /*
     Application Interceptors
 
@@ -82,7 +112,13 @@ public class TestInterceptors {
     2 actionable tasks: 2 executed
     11:12:07 AM: Task execution finished 'TestInterceptors.main()'.
      */
-    private void test_ApplicationInterceptors() {
+
+    /**
+     * http://www.publicobject.com/helloworld.txt
+     * -> 302 https://www.publicobject.com/helloworld.txt
+     * -> 302 https://publicobject.com/helloworld.txt
+     */
+    private static void okhttp_302() {
         try {
             Request request = new Request.Builder()
 //                    .url("http://www.publicobject.com/helloworld.txt")
@@ -90,7 +126,7 @@ public class TestInterceptors {
                     .header("User-Agent", "OkHttp Example")
                     .build();
 
-            Response response = new LocalServiceCreator()
+            okhttp3.Response response = new OkHttpUtils()
                     .createOkHttpClient()
                     .newCall(request).execute();
 

@@ -27,6 +27,8 @@ dependencies {
     implementation group: 'com.squareup.okhttp3', name: 'logging-interceptor', version: '4.7.1'
     implementation group: 'com.squareup.okhttp3', name: 'mockwebserver', version: '4.7.1'
 
+    implementation group: 'org.apache.httpcomponents', name: 'httpclient', version: '4.5.13'
+
     implementation 'com.google.code.findbugs:jsr305:3.0.2'
     implementation 'org.jsoup:jsoup:1.7.3'
 }

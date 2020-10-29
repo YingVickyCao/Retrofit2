@@ -296,3 +296,4 @@ Retrofit retrofit = new Retrofit.Builder()
 - TBD:https://blog.csdn.net/biezhihua/article/details/49232289
 - 302 https://blog.csdn.net/weixin_30396699/article/details/99301200
 - 302 https://blog.csdn.net/qq_33442160/article/details/81711386
+- TBD: https://www.cnblogs.com/lulianqi/p/11380794.html#_label5
