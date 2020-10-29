@@ -20,6 +20,7 @@ public class TestOkHtp {
             Request request = new Request.Builder()
                     .url("http://www.publicobject.com/helloworld.txt")
                     .header("User-Agent", "OkHttp Example")
+                    .header("Connection", "close")
                     .build();
 
             OkHttpClient client = new OkHttpUtils().createOkHttpClient_force302();
@@ -34,10 +35,8 @@ public class TestOkHtp {
                             logger.log("force302:onResponse ----->");
                             String location = response.header("location");
                             System.err.println(location);  // https://www.publicobject.com/helloworld.txt
-                            ResponseBody responseBody = response.body();
-                            if (responseBody != null) {
-                                responseBody.close();
-                            }
+                            // After get location from 302, close connection immediately
+                            client.dispatcher().executorService().shutdownNow();
                             logger.log("force302:onResponse <-----");
                         }
                     });

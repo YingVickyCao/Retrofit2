@@ -28,20 +28,69 @@ public class CustomLoggingInterceptor implements Interceptor {
     }
 ```
 
-## 302
+- Interceptors Order  
+   e.g., Request not 30X only run run one time , but OKHttp Interceptors work as a chain.
 
-- 302 ?  
-  重定向/redirect
+  TestOkHtp.java
 
-  重定向是两次请求；  
-  重定向的 URL 可以是其他应用，不局限于当前应用；  
-  重定向的响应头为 302，并且必须要有 Location 响应头；
+  First Order:Application Interceptor, then Network Interceptor.  
+  Second order: FILO
 
-  https://blog.csdn.net/weixin_30396699/article/details/99301200  
-  https://blog.csdn.net/qq_33442160/article/details/81711386
+Example 1:
 
-- 302 通常用在跨 domian 请求
-- 默认有 Interceptor。 不添加自定义 Interceptor ，也能执行 302 跳转，但没有 log。
+```java
+.addNetworkInterceptor(new RedirectInterceptor())
+.addInterceptor(new HttpLoggingInterceptor())
+```
+
+```
+H Request --------->
+R Request --------->
+R Response <---------
+H Response ---------
+```
+
+Example 2:
+
+```java
+.addInterceptor(new HttpLoggingInterceptor())
+.addNetworkInterceptor(new RedirectInterceptor())
+```
+
+```
+H Request --------->
+R Request --------->
+R Response <---------
+H Response ---------
+```
+
+Example 3:
+
+```java
+.addNetworkInterceptor(new RedirectInterceptor())
+.addNetworkInterceptor(new HttpLoggingInterceptor())
+```
+
+```
+R Request --------->
+H Request --------->
+H Response <---------
+R Response ---------
+```
+
+Example 4:
+
+```java
+.addInterceptor(new RedirectInterceptor())
+.addInterceptor(new HttpLoggingInterceptor())
+```
+
+```
+R Request --------->
+H Request --------->
+H Response <---------
+R Response ---------
+```
 
 ## Application Interceptors
 
@@ -133,6 +182,29 @@ Network Interceptors
     2 actionable tasks: 2 executed
     11:12:07 AM: Task execution finished 'TestInterceptors.main()'.
 ```
+
+## 302
+
+- 302 ?  
+  重定向/redirect
+
+  重定向是两次请求；  
+  重定向的 URL 可以是其他应用，不局限于当前应用；  
+  重定向的响应头为 302，并且必须要有 Location 响应头；
+
+  https://blog.csdn.net/weixin_30396699/article/details/99301200  
+  https://blog.csdn.net/qq_33442160/article/details/81711386
+
+- 302 通常用在跨 domian 请求
+- 默认有 Interceptor。 不添加自定义 Interceptor ，也能执行 302 跳转，但没有 log。
+
+- After get location from 302, close connection immediately
+
+```java
+  client.dispatcher().executorService().shutdownNow();
+```
+
+- TO DO:OKHttp 比 TestHttpURLConnection 结束得慢
 
 ## 2 Response
 

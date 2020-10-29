@@ -7,11 +7,13 @@ import okhttp3.logging.HttpLoggingInterceptor;
 
 import java.io.IOException;
 
-public class CustomLoggingInterceptor implements Interceptor {
+public class LoggingInterceptor implements Interceptor {
     HttpLoggingInterceptor.Logger logger = HttpLoggingInterceptor.Logger.DEFAULT;
 
     @Override
     public Response intercept(Interceptor.Chain chain) throws IOException {
+        logger.log("LoggingInterceptor,intercept,----->");
+
         Request request = chain.request();
 
         long t1 = System.nanoTime();
@@ -21,6 +23,8 @@ public class CustomLoggingInterceptor implements Interceptor {
         long t2 = System.nanoTime();
         logger.log(String.format("Received response for %s in %.1fms \nstatus code %s  %n%s", response.request().url(), (t2 - t1) / 1e6d, response.code(), response.headers()));
 //        logger.log("Response status code:" + response.code());
+
+        logger.log("LoggingInterceptor,intercept,<-----");
         return response;
     }
 }

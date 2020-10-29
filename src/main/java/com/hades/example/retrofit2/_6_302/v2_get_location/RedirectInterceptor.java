@@ -13,6 +13,7 @@ public class RedirectInterceptor implements Interceptor {
 
     @Override
     public Response intercept(Chain chain) throws IOException {
+        logger.log("RedirectInterceptor,intercept,----->");
         Request request = chain.request();
 
         long t1 = System.nanoTime();
@@ -24,7 +25,7 @@ public class RedirectInterceptor implements Interceptor {
 //        logger.log("Response status code:" + response.code());
 //        logger.log(response.header("location"));
 
-        logger.log("response.isRedirect():" + response.isRedirect());
+//        logger.log("response.isRedirect():" + response.isRedirect());
         if (response.code() == 301 || response.code() == 302) {
             String location = response.header("location");
             if (null != location && location.startsWith("https://www.publicobject.com/")) {
@@ -33,6 +34,7 @@ public class RedirectInterceptor implements Interceptor {
                 response.body().close();
             }
         }
+        logger.log("RedirectInterceptor,intercept,<-----");
         return response;
     }
 }
