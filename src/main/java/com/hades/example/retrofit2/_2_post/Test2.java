@@ -1,13 +1,13 @@
 package com.hades.example.retrofit2._2_post;
 
-import com.hades.example.retrofit2.services.LocalServiceCreator;
 import com.hades.example.retrofit2.services.LocalService;
+import com.hades.example.retrofit2.services.RetrofitUtils;
 import retrofit2.Call;
 import retrofit2.Response;
 
 import java.io.IOException;
 
-public class Test2 extends LocalServiceCreator {
+public class Test2 {
     private static final String TAG = Test2.class.getSimpleName();
 
     public static void main(String[] args) throws IOException {
@@ -16,8 +16,7 @@ public class Test2 extends LocalServiceCreator {
 
     private void test() {
         try {
-            LocalServiceCreator localServiceCreator = new LocalServiceCreator();
-            LocalService localService = localServiceCreator.init();
+            LocalService localService = RetrofitUtils.createRetrofit(LocalService.BASE_URL).create(LocalService.class);
             request(localService);
         } catch (IOException exception) {
             exception.printStackTrace();

@@ -1,21 +1,18 @@
 package com.hades.example.retrofit2._4_request_body;
 
-import com.hades.example.retrofit2.services.GitHubService;
 import com.hades.example.retrofit2.Issue;
-import com.hades.example.retrofit2.services.GitHubServiceCreator;
+import com.hades.example.retrofit2.UrlConstants;
 import com.hades.example.retrofit2._1_get.Repo;
+import com.hades.example.retrofit2.services.GitHubService;
+import com.hades.example.retrofit2.services.RetrofitUtils;
 import retrofit2.Call;
 import retrofit2.Response;
 
 import java.io.IOException;
 
-public class Test extends GitHubServiceCreator {
+public class Test {
     public static void main(String[] args) throws IOException {
-        new Test().init();
-    }
-
-    @Override
-    protected void request(GitHubService service) throws IOException {
+        GitHubService service = RetrofitUtils.createRetrofit(UrlConstants.BASE_URL_3).create(GitHubService.class);
         Issue issue = new Issue();
         new Thread(new Runnable() {
             @Override
@@ -37,7 +34,7 @@ public class Test extends GitHubServiceCreator {
         }).start();
     }
 
-    private void response(Response<Integer> response) {
+    private static void response(Response<Integer> response) {
         if (null != response && null != response.body() && response.isSuccessful()) {
             System.out.println(response.toString());
         }

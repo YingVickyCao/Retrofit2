@@ -2,14 +2,12 @@ package com.hades.example.retrofit2._6_302.v1;
 
 import com.hades.example.java.lib.FileUtils;
 import com.hades.example.retrofit2.services.LocalService;
-import com.hades.example.retrofit2.services.LocalServiceCreator;
 import com.hades.example.retrofit2.services.OkHttpUtils;
+import com.hades.example.retrofit2.services.RetrofitUtils;
 import okhttp3.Request;
 import okhttp3.ResponseBody;
 import retrofit2.Response;
 import rx.Observer;
-
-import java.io.IOException;
 
 public class Test302 {
     private static final String TAG = Test302.class.getSimpleName();
@@ -20,31 +18,26 @@ public class Test302 {
     }
 
     private static void rxjava_with_interepter_302() {
-        try {
-            LocalServiceCreator localServiceCreator = new LocalServiceCreator();
-            LocalService localService = localServiceCreator.init();
-            localService.redirect(5)
-                    .subscribe(new Observer<Response<ResponseBody>>() {
-                        @Override
-                        public void onCompleted() {
-                            System.out.println();
-                        }
+        LocalService localService = RetrofitUtils.createRetrofit_forbid302(LocalService.BASE_URL).create(LocalService.class);
+        localService.redirect(5)
+                .subscribe(new Observer<Response<ResponseBody>>() {
+                    @Override
+                    public void onCompleted() {
+                        System.out.println();
+                    }
 
-                        @Override
-                        public void onError(Throwable e) {
-                            System.out.println(e);
-                        }
+                    @Override
+                    public void onError(Throwable e) {
+                        System.out.println(e);
+                    }
 
-                        @Override
-                        public void onNext(Response<ResponseBody> responseBodyResponse) {
-                            String result = new FileUtils().convertStreamToStr(responseBodyResponse.body().byteStream());
-                            // Jump from redirect
-                            System.out.println(result);
-                        }
-                    });
-        } catch (IOException exception) {
-            exception.printStackTrace();
-        }
+                    @Override
+                    public void onNext(Response<ResponseBody> responseBodyResponse) {
+                        String result = new FileUtils().convertStreamToStr(responseBodyResponse.body().byteStream());
+                        // Jump from redirect
+                        System.out.println(result);
+                    }
+                });
     }
 
     // 重定向
@@ -121,7 +114,7 @@ public class Test302 {
     private static void okhttp_302() {
         try {
             Request request = new Request.Builder()
-//                    .url("http://www.publicobject.com/helloworld.txt")
+//                    .url(UrlConstants.URL_1)
                     .url("https://www.publicobject.com/helloworld.txt")
                     .header("User-Agent", "OkHttp Example")
                     .build();

@@ -1,12 +1,12 @@
 package com.hades.example.retrofit2.services;
 
 import com.hades.example.retrofit2._6_302.v1.LoggingInterceptor;
-import com.hades.example.retrofit2._6_302.v2_get_location.RedirectInterceptor;
+import com.hades.example.retrofit2._6_302.v2_forbid302_and_get_location.RedirectInterceptor;
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 
 public class OkHttpUtils {
-    public OkHttpClient createOkHttpClient() {
+    public static OkHttpClient createOkHttpClient() {
         OkHttpClient.Builder builder = new OkHttpClient.Builder();
         builder.addNetworkInterceptor(createHttpLoggingInterceptor());
 //        builder.addInterceptor(createHttpLoggingInterceptor());
@@ -14,18 +14,18 @@ public class OkHttpUtils {
         return okHttpClient;
     }
 
-    public OkHttpClient createOkHttpClient_force302() {
+    public static OkHttpClient createOkHttpClient_forbid302() {
         return new OkHttpClient.Builder()
-//                .addNetworkInterceptor(new RedirectInterceptor())
-//                .addNetworkInterceptor(createHttpLoggingInterceptor())
-                .addInterceptor(new RedirectInterceptor())
-                .addInterceptor(createHttpLoggingInterceptor())
+                .addNetworkInterceptor(createHttpLoggingInterceptor())
+                .addNetworkInterceptor(new RedirectInterceptor())
+//                .addInterceptor(new RedirectInterceptor())
+//                .addInterceptor(createHttpLoggingInterceptor())
                 .followRedirects(false)
                 .followSslRedirects(false)
                 .build();
     }
 
-    private Interceptor createHttpLoggingInterceptor() {
+    private static Interceptor createHttpLoggingInterceptor() {
         LoggingInterceptor httpLoggingInterceptor = new LoggingInterceptor();
 //        httpLoggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
         return httpLoggingInterceptor;

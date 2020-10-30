@@ -19,6 +19,8 @@ public class LoggingInterceptor implements Interceptor {
         long t1 = System.nanoTime();
         logger.log(String.format("Sending request %s on %s%n%s", request.url(), chain.connection(), request.headers()));
         Response response = chain.proceed(request);
+        logger.log("isSuccessful:"+response.isSuccessful());
+        logger.log("isRedirect:"+response.isRedirect());
 
         long t2 = System.nanoTime();
         logger.log(String.format("Received response for %s in %.1fms \nstatus code %s  %n%s", response.request().url(), (t2 - t1) / 1e6d, response.code(), response.headers()));

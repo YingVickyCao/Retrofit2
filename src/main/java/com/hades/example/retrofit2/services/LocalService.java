@@ -11,6 +11,8 @@ import rx.Observable;
 import java.util.Map;
 
 public interface LocalService {
+    public static String BASE_URL = "http://localhost:7777/";
+
     /**
      * Test synchronous or asynchronous HTTP request,START
      */

@@ -1,4 +1,4 @@
-package com.hades.example.retrofit2._6_302.v2_get_location;
+package com.hades.example.retrofit2._6_302.v2_forbid302_and_get_location;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.client.config.RequestConfig;
@@ -10,10 +10,10 @@ import java.io.IOException;
 
 public class TestHttpClient {
     public static void main(String[] args) throws IOException {
-        getPosition();
+        forbid302();
     }
 
-    private static void getPosition() throws IOException {
+    private static void forbid302() throws IOException {
         RequestConfig config = RequestConfig.custom()
                 .setRedirectsEnabled(false) //不允许重定向
                 .build();

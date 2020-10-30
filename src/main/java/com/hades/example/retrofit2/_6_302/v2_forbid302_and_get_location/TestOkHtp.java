@@ -1,9 +1,12 @@
-package com.hades.example.retrofit2._6_302.v2_get_location;
+package com.hades.example.retrofit2._6_302.v2_forbid302_and_get_location;
 
+import com.hades.example.java.lib.FileUtils;
 import com.hades.example.retrofit2.services.OkHttpUtils;
+import com.hades.example.retrofit2.services.RetrofitUtils;
 import okhttp3.*;
 import okhttp3.logging.HttpLoggingInterceptor;
 import org.jetbrains.annotations.NotNull;
+import rx.Observer;
 
 import java.io.IOException;
 
@@ -11,11 +14,39 @@ public class TestOkHtp {
     static HttpLoggingInterceptor.Logger logger = HttpLoggingInterceptor.Logger.DEFAULT;
 
     public static void main(String[] args) {
-        force302();
+        forbid302_retrofit2();
+//        forbid302();
     }
 
-    private static void force302() {
-        logger.log("force302:-------->");
+    private static void forbid302_retrofit2() {
+        ISampleService service = RetrofitUtils
+                .createRetrofit_forbid302("http://www.publicobject.com")
+                .create(ISampleService.class);
+
+        service.getPosition("http://www.publicobject.com/helloworld.txt")
+                .subscribe(new Observer<retrofit2.Response<ResponseBody>>() {
+                    @Override
+                    public void onCompleted() {
+                        System.out.println();
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        System.out.println(e);
+                    }
+
+                    @Override
+                    public void onNext(retrofit2.Response<ResponseBody> responseBodyResponse) {
+                        String result = new FileUtils().convertStreamToStr(responseBodyResponse.body().byteStream());
+                        // Jump from redirect
+                        System.out.println(result);
+                    }
+                });
+
+    }
+
+    private static void forbid302() {
+        logger.log("forbid302:-------->");
         try {
             Request request = new Request.Builder()
                     .url("http://www.publicobject.com/helloworld.txt")
@@ -23,7 +54,7 @@ public class TestOkHtp {
                     .header("Connection", "close")
                     .build();
 
-            OkHttpClient client = new OkHttpUtils().createOkHttpClient_force302();
+            OkHttpClient client = new OkHttpUtils().createOkHttpClient_forbid302();
             client.newCall(request)
                     .enqueue(new Callback() {
                         @Override

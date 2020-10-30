@@ -2,7 +2,7 @@ package com.hades.example.retrofit2._7_sync_async;
 
 import com.hades.example.java.lib.FileUtils;
 import com.hades.example.retrofit2.services.LocalService;
-import com.hades.example.retrofit2.services.LocalServiceCreator;
+import com.hades.example.retrofit2.services.RetrofitUtils;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -25,12 +25,7 @@ public class Test {
     }
 
     private void init() {
-        try {
-            LocalServiceCreator localServiceCreator = new LocalServiceCreator();
-            localService = localServiceCreator.init();
-        } catch (IOException exception) {
-            exception.printStackTrace();
-        }
+        localService = RetrofitUtils.createRetrofit(LocalService.BASE_URL).create(LocalService.class);
     }
 
     protected void hello_sync() {

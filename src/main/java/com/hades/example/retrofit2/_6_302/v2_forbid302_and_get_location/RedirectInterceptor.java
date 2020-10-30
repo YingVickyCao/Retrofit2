@@ -1,4 +1,4 @@
-package com.hades.example.retrofit2._6_302.v2_get_location;
+package com.hades.example.retrofit2._6_302.v2_forbid302_and_get_location;
 
 import okhttp3.Interceptor;
 import okhttp3.Request;
@@ -24,6 +24,9 @@ public class RedirectInterceptor implements Interceptor {
         logger.log(String.format("Received response for %s in %.1fms \nstatus code %s  %n%s", response.request().url(), (t2 - t1) / 1e6d, response.code(), response.headers()));
 //        logger.log("Response status code:" + response.code());
 //        logger.log(response.header("location"));
+
+        logger.log("isSuccessful:"+response.isSuccessful());
+        logger.log("isRedirect:"+response.isRedirect());
 
 //        logger.log("response.isRedirect():" + response.isRedirect());
         if (response.code() == 301 || response.code() == 302) {
