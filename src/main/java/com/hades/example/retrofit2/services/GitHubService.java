@@ -1,7 +1,7 @@
 package com.hades.example.retrofit2.services;
 
-import com.hades.example.retrofit2.User;
-import com.hades.example.retrofit2._1_get.Repo;
+import com.hades.example.retrofit2.bean.User2;
+import com.hades.example.retrofit2.bean.Repo;
 import retrofit2.Call;
 import retrofit2.http.*;
 
@@ -26,19 +26,11 @@ public interface GitHubService {
 
     // https://api.github.com/users/list
     @GET("users/list")
-    Call<User> listUsers();
+    Call<User2> listUsers();
 
     // https://api.github.com/users/list?sort=asc
     @GET("users/list?sort=desc")
-    Call<User> listUsersWithSpecifyParametersInURL();
-
-    /**
-     * https://api.github.com/users?since=135
-     * Ref:
-     * https://developer.github.com/v3/users/#get-a-single-user
-     */
-    @GET("users")
-    Call<List<User>> listUsersSinceID(@Query("since") int id);
+    Call<User2> listUsersWithSpecifyParametersInURL();
 
     // https://developer.github.com/v3/issues/#create-an-issue
     // https://www.jianshu.com/p/a0c7d0482415

@@ -1,4 +1,4 @@
-package com.hades.example.retrofit2._5_download_zip;
+package com.hades.example.retrofit2._3_download_zip;
 
 import okhttp3.ResponseBody;
 import retrofit2.Call;

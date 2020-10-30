@@ -5,7 +5,7 @@ import com.hades.example.retrofit2._6_302.v2_forbid302_and_get_location.Redirect
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 
-public class OkHttpUtils {
+public class OkHttpClientUtils {
     public static OkHttpClient createOkHttpClient() {
         OkHttpClient.Builder builder = new OkHttpClient.Builder();
         builder.addNetworkInterceptor(createHttpLoggingInterceptor());

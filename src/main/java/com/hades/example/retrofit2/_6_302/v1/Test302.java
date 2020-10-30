@@ -2,7 +2,7 @@ package com.hades.example.retrofit2._6_302.v1;
 
 import com.hades.example.java.lib.FileUtils;
 import com.hades.example.retrofit2.services.LocalService;
-import com.hades.example.retrofit2.services.OkHttpUtils;
+import com.hades.example.retrofit2.services.OkHttpClientUtils;
 import com.hades.example.retrofit2.services.RetrofitUtils;
 import okhttp3.Request;
 import okhttp3.ResponseBody;
@@ -119,7 +119,7 @@ public class Test302 {
                     .header("User-Agent", "OkHttp Example")
                     .build();
 
-            okhttp3.Response response = new OkHttpUtils()
+            okhttp3.Response response = new OkHttpClientUtils()
                     .createOkHttpClient()
                     .newCall(request).execute();
 

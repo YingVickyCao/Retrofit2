@@ -1,4 +1,4 @@
-package com.hades.example.retrofit2._2_post;
+package com.hades.example.retrofit2.bean;
 
 public class LoginResult {
     private String msg;

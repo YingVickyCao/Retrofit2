@@ -1,5 +1,6 @@
 package com.hades.example.retrofit2._2_post;
 
+import com.hades.example.retrofit2.bean.LoginResult;
 import com.hades.example.retrofit2.services.LocalService;
 import com.hades.example.retrofit2.services.RetrofitUtils;
 import retrofit2.Call;
@@ -7,11 +8,11 @@ import retrofit2.Response;
 
 import java.io.IOException;
 
-public class Test3 {
-    private static final String TAG = Test3.class.getSimpleName();
+public class TestField {
+    private static final String TAG = TestField.class.getSimpleName();
 
     public static void main(String[] args) throws IOException {
-        new Test3().test();
+        new TestField().test();
     }
 
     private void test() {

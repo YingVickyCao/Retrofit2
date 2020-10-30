@@ -1,4 +1,4 @@
-package com.hades.example.retrofit2._5_download_zip;
+package com.hades.example.retrofit2._3_download_zip;
 
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;

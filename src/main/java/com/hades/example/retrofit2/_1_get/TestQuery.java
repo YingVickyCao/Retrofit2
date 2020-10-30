@@ -1,4 +1,4 @@
-package com.hades.example.retrofit2._2_post;
+package com.hades.example.retrofit2._1_get;
 
 import com.hades.example.retrofit2.services.LocalService;
 import com.hades.example.retrofit2.services.RetrofitUtils;
@@ -7,11 +7,11 @@ import retrofit2.Response;
 
 import java.io.IOException;
 
-public class Test2 {
-    private static final String TAG = Test2.class.getSimpleName();
+public class TestQuery {
+    private static final String TAG = TestQuery.class.getSimpleName();
 
     public static void main(String[] args) throws IOException {
-        new Test2().test();
+        new TestQuery().test();
     }
 
     private void test() {
@@ -27,21 +27,24 @@ public class Test2 {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                Call<LoginResult> call = service.login(new User("test", "123456"));
-                Response<LoginResult> loginResult = null;
+                /**
+                 * http://localhost:7777/sum?num1=5&num2=15
+                 */
+                Call<Integer> call = service.getSum(5, 15);
+                Response<Integer> response = null;
                 try {
-                    loginResult = call.execute();
+                    response = call.execute();
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-                response(loginResult);
+                response(response);
             }
         }).start();
     }
 
-    private void response(Response<LoginResult> loginResult) {
-        if (null != loginResult && loginResult.isSuccessful()) {
-            LoginResult result = loginResult.body();
+    private void response(Response<Integer> response) {
+        if (null != response && response.isSuccessful()) {
+            Integer result = response.body();
             if (null != result) {
                 System.out.println(TAG + ",result=" + result.toString());
             }

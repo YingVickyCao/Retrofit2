@@ -41,7 +41,7 @@ Call<Integer> getSum(@Query("num1") int num1,@QueryMap Map<String, Integer> map)
 ```java
 // https://api.github.com/users/YingVickyCao/repos
 @GET("users/{login}/repos")
-Call<List<Repo>> listRepos(@Path("login") String user);
+Call<List<Repo>> listRepos(@Path("login") String user2);
 ```
 
 ```java
@@ -104,7 +104,7 @@ Call<LoginResult> login(@Field("name") String name, @Field("pwd") String pwd);
     */
 @POST("login")
 @Headers("Content-Type: application/json; charset=utf8")
-Call<LoginResult> login(@Body User user);
+Call<LoginResult> login(@Body User user2);
 ```
 
 - POST 的可能非标准使用
@@ -236,23 +236,19 @@ Way 2 : @Headers
 Call(ResponseBody) getData(@Query("id") String id);
 ```
 
-# 6 Return value
+# 6 302
+
+## Forbid 302, and get the postion from Header
 
 ```java
-// Each Call can make a synchronous or asynchronous HTTP request to the remote webserver.
+// OkHttpClientUtils.java
+    .followRedirects(false)
+    .followSslRedirects(false)
+```
 
-@GET("sum")
-Call<Integer> getSum(@Query("num1") int num1, @Query("num2") int num2)
-/
-
-@GET("sum")
-Observable<Response<ResponseBody>> getSum(@Query("num1") int num1, @Query("num2") int num2);
-
-/
-// Return is Json -> Bean
-@POST("login")
-@Headers("Content-Type: application/json; charset=utf8")
-Call<LoginResult> login(@Body User user);
+```java
+// TestOkHtp.java
+String location = responseBodyResponse.headers().get("location");
 ```
 
 # 7 synchronous and asynchronous HTTP request
@@ -271,6 +267,25 @@ Observable<Response<ResponseBody>> hello2();
 ```
 
 Each Call / Observable from the created GitHubService can make a synchronous or asynchronous HTTP request to the remote webserver.
+
+# Return value
+
+```java
+// Each Call can make a synchronous or asynchronous HTTP request to the remote webserver.
+
+@GET("sum")
+Call<Integer> getSum(@Query("num1") int num1, @Query("num2") int num2)
+/
+
+@GET("sum")
+Observable<Response<ResponseBody>> getSum(@Query("num1") int num1, @Query("num2") int num2);
+
+/
+// Return is Json -> Bean
+@POST("login")
+@Headers("Content-Type: application/json; charset=utf8")
+Call<LoginResult> login(@Body User user2);
+```
 
 # ERROR
 

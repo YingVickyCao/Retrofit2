@@ -1,7 +1,7 @@
 package com.hades.example.retrofit2.services;
 
-import com.hades.example.retrofit2._2_post.LoginResult;
-import com.hades.example.retrofit2._2_post.User;
+import com.hades.example.retrofit2.bean.LoginResult;
+import com.hades.example.retrofit2.bean.User;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Response;

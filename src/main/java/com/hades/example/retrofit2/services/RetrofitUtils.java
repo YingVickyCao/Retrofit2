@@ -8,11 +8,11 @@ import retrofit2.converter.scalars.ScalarsConverterFactory;
 
 public class RetrofitUtils {
     public static Retrofit createRetrofit(String baseUrl) {
-        return createRetrofit(OkHttpUtils.createOkHttpClient(), baseUrl);
+        return createRetrofit(OkHttpClientUtils.createOkHttpClient(), baseUrl);
     }
 
     public static Retrofit createRetrofit_forbid302(String baseUrl) {
-        return createRetrofit(OkHttpUtils.createOkHttpClient_forbid302(), baseUrl);
+        return createRetrofit(OkHttpClientUtils.createOkHttpClient_forbid302(), baseUrl);
     }
 
     private static Retrofit createRetrofit(OkHttpClient client, String baseURL) {

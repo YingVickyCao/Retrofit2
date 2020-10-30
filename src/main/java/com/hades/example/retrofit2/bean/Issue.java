@@ -1,4 +1,4 @@
-package com.hades.example.retrofit2;
+package com.hades.example.retrofit2.bean;
 
 public class Issue {
     protected String title;

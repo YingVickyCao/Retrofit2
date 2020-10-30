@@ -1,4 +1,4 @@
-package com.hades.example.retrofit2._1_get;
+package com.hades.example.retrofit2.bean;
 
 public class Repo implements Comparable<Repo> {
     private Long id;

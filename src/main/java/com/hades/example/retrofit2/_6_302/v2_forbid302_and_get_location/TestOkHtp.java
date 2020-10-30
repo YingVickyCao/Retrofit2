@@ -1,7 +1,7 @@
 package com.hades.example.retrofit2._6_302.v2_forbid302_and_get_location;
 
 import com.hades.example.retrofit2.UrlConstants;
-import com.hades.example.retrofit2.services.OkHttpUtils;
+import com.hades.example.retrofit2.services.OkHttpClientUtils;
 import com.hades.example.retrofit2.services.RetrofitUtils;
 import okhttp3.*;
 import okhttp3.logging.HttpLoggingInterceptor;
@@ -55,7 +55,7 @@ public class TestOkHtp {
                     .header("Connection", "close")
                     .build();
 
-            OkHttpClient client = new OkHttpUtils().createOkHttpClient_forbid302();
+            OkHttpClient client = new OkHttpClientUtils().createOkHttpClient_forbid302();
             client.newCall(request)
                     .enqueue(new Callback() {
                         @Override
