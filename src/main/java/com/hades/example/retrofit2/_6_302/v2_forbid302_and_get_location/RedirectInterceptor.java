@@ -25,16 +25,14 @@ public class RedirectInterceptor implements Interceptor {
 //        logger.log("Response status code:" + response.code());
 //        logger.log(response.header("location"));
 
-        logger.log("isSuccessful:"+response.isSuccessful());
-        logger.log("isRedirect:"+response.isRedirect());
+        logger.log("isSuccessful:"+response.isSuccessful() + ",isRedirect:"+response.isRedirect());
 
 //        logger.log("response.isRedirect():" + response.isRedirect());
         if (response.code() == 301 || response.code() == 302) {
             String location = response.header("location");
             if (null != location && location.startsWith("https://www.publicobject.com/")) {
                 logger.log("location:" + location);
-                response.close();
-                response.body().close();
+//                response.body().close();
             }
         }
         logger.log("RedirectInterceptor,intercept,<-----");
