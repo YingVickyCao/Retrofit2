@@ -93,33 +93,38 @@ Call<LoginResult> login(@Field("name") String name, @Field("pwd") String pwd);
 
 ## Body
 
+Server api is the same one
+
 ```java
 /*
     Request URL: http://localhost:7777/login
     Request Method: POST
-    Body :
+    Body : Body is submitted as json
             {"name":"test","pwd":"123456"}
-            name=test&pwd=123456
     Content-Type: application/json; charset=utf8
     */
-// Body is submited as json
-// Request : Content-Type: application/json; charset=utf8
 @POST("login")
 @Headers("Content-Type: application/json; charset=utf8")
-Call<LoginResult> login(@Body User user2);
-```
+Call<LoginResult> login(@Body User user);
 
-```java
-// Body is submited as Form
-// Request : Content-Type: application/x-www-from-urlencoded; charset=utf8
+/*
+    Request URL: http://localhost:7777/login
+    Request Method: POST
+    Body : Body is submitted as Form
+            name=test&pwd=123456
+    Content-Type: application/x-www-from-urlencoded; charset=utf8
+    */
 @POST("login")
 @Headers("Content-Type: application/x-www-from-urlencoded; charset=utf8")
 Call<LoginResult> login_2(@Body User user);
-```
 
-```java
-// Body is submited as json
-// Request : Content-Type: application/json; charset=UTF-8
+/*
+    Request URL: http://localhost:7777/login
+    Request Method: POST
+    Body:  Body is submitted as json
+            {"name":"test","pwd":"123456"}
+    Content-Type: application/json; charset=utf8
+    */
 @POST("login")
 Call<LoginResult> login_3(@Body User user);
 ```

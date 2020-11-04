@@ -49,9 +49,8 @@ public interface LocalService {
     /*
        Request URL: http://localhost:7777/login
        Request Method: POST
-       From Data :
-               {"name":"test","pwd":"123456"}
-               name=test&pwd=123456
+       Body : Body is submitted as json
+              {"name":"test","pwd":"123456"}
        Content-Type: application/json; charset=utf8
      */
     @POST("login")
@@ -61,15 +60,21 @@ public interface LocalService {
     /*
        Request URL: http://localhost:7777/login
        Request Method: POST
-       From Data :
-               {"name":"test","pwd":"123456"}
-               name=test&pwd=123456
+       Body : Body is submitted as Form
+              name=test&pwd=123456
        Content-Type: application/x-www-from-urlencoded; charset=utf8
      */
     @POST("login")
     @Headers("Content-Type: application/x-www-from-urlencoded; charset=utf8")
     Call<LoginResult> login_2(@Body User user);
 
+    /*
+       Request URL: http://localhost:7777/login
+       Request Method: POST
+       Body:  Body is submitted as json
+               {"name":"test","pwd":"123456"}
+       Content-Type: application/json; charset=utf8
+     */
     @POST("login")
     Call<LoginResult> login_3(@Body User user);
 
