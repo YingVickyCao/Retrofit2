@@ -35,18 +35,13 @@ public class TestField {
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-                response(loginResult);
+                if (null != loginResult && loginResult.isSuccessful()) {
+                    LoginResult result = loginResult.body();
+                    if (null != result) {
+                        System.out.println(TAG + ",result=" + result.toString());
+                    }
+                }
             }
         }).start();
     }
-
-    private void response(Response<LoginResult> loginResult) {
-        if (null != loginResult && loginResult.isSuccessful()) {
-            LoginResult result = loginResult.body();
-            if (null != result) {
-                System.out.println(TAG + ",result=" + result.toString());
-            }
-        }
-    }
-
 }

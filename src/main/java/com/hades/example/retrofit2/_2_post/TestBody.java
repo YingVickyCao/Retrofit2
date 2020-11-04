@@ -19,6 +19,8 @@ public class TestBody {
     public static void main(String[] args) throws IOException {
         body1();
         body2();
+        body3();
+        body4();
     }
 
     private static void body1() {
@@ -44,6 +46,50 @@ public class TestBody {
     }
 
     private static void body2() {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                LocalService service = RetrofitUtils.createRetrofit(LocalService.BASE_URL).create(LocalService.class);
+                Call<LoginResult> call = service.login_2(new User("test", "123456"));
+                Response<LoginResult> loginResult = null;
+                try {
+                    loginResult = call.execute();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                if (null != loginResult && loginResult.isSuccessful()) {
+                    LoginResult result = loginResult.body();
+                    if (null != result) {
+                        System.out.println(TAG + ",result=" + result.toString());
+                    }
+                }
+            }
+        }).start();
+    }
+
+    private static void body3() {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                LocalService service = RetrofitUtils.createRetrofit(LocalService.BASE_URL).create(LocalService.class);
+                Call<LoginResult> call = service.login_3(new User("test", "123456"));
+                Response<LoginResult> loginResult = null;
+                try {
+                    loginResult = call.execute();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                if (null != loginResult && loginResult.isSuccessful()) {
+                    LoginResult result = loginResult.body();
+                    if (null != result) {
+                        System.out.println(TAG + ",result=" + result.toString());
+                    }
+                }
+            }
+        }).start();
+    }
+
+    private static void body4() {
         GitHubService service = RetrofitUtils.createRetrofit(UrlConstants.BASE_URL_3).create(GitHubService.class);
         Issue issue = new Issue();
         new Thread(new Runnable() {

@@ -53,7 +53,7 @@ Call<NewsBean> getItem(@Path("newsId") String newsId， @Path("type") String typ
 
 # 2 POST
 
-## Form
+## Form - FormUrlEncoded
 
 ```java
 /**
@@ -97,14 +97,31 @@ Call<LoginResult> login(@Field("name") String name, @Field("pwd") String pwd);
 /*
     Request URL: http://localhost:7777/login
     Request Method: POST
-    From Data :
+    Body :
             {"name":"test","pwd":"123456"}
             name=test&pwd=123456
     Content-Type: application/json; charset=utf8
     */
+// Body is submited as json
+// Request : Content-Type: application/json; charset=utf8
 @POST("login")
 @Headers("Content-Type: application/json; charset=utf8")
 Call<LoginResult> login(@Body User user2);
+```
+
+```java
+// Body is submited as Form
+// Request : Content-Type: application/x-www-from-urlencoded; charset=utf8
+@POST("login")
+@Headers("Content-Type: application/x-www-from-urlencoded; charset=utf8")
+Call<LoginResult> login_2(@Body User user);
+```
+
+```java
+// Body is submited as json
+// Request : Content-Type: application/json; charset=UTF-8
+@POST("login")
+Call<LoginResult> login_3(@Body User user);
 ```
 
 - POST 的可能非标准使用
@@ -118,6 +135,29 @@ Call<LoginResult> login(@Body User user2);
 /
 @Path + @Query + FieldMap
 ```
+
+- Request Payload vs Form Data?  
+  They differ in Content-Type but not in the way data is submitted.  
+  In both cases the data is in the message-body.  
+  Chrome distinguished how the data is presented to you in Develoeper Tools.
+
+```
+Content-Type: application/json
+
+Request Payload:
+{name: "Vicky", pwd: "123"}
+```
+
+```
+content-type: text/html
+/ content-type: application/x-www-from-urlencoded
+/ content-type: multipart/from-data
+
+Form Data:
+name=CntChen&info=Front-End
+```
+
+https://www.cnblogs.com/tugenhua0707/p/8975615.html
 
 # 3 Download zip
 
