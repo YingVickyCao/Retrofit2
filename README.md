@@ -93,7 +93,8 @@ Call<LoginResult> login(@Field("name") String name, @Field("pwd") String pwd);
 
 ## Body
 
-Server api is the same one
+Server api is the same one.  
+Body 相当于多个@Field,以对象的方式提交
 
 ```java
 /*
@@ -312,6 +313,14 @@ Observable<Response<ResponseBody>> hello2();
 ```
 
 Each Call / Observable from the created GitHubService can make a synchronous or asynchronous HTTP request to the remote webserver.
+
+# 8 add cookie
+
+```java
+Request.Builder builder = request.newBuilder();
+builder.addHeader("Cookie", "cookie_value_1");
+builder.addHeader("Cookie", "cookie_value_2");
+```
 
 # Return value
 
